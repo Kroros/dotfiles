@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Change wallpaper set
-WALLPAPER_DIR="/mnt/hdd/wallpapers/"
+WALLPAPER_DIR="/home/david/hdd/wallpapers/"
 echo $1 > $HOME/.cache/hypr_current_theme
 
 WALLPAPER1=$(grep -w ".*$1.*" $HOME/.config/hypr/themes/wp_tags.txt | cut -d: -f1 | shuf -n 1)

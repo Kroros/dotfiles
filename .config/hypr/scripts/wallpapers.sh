@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WALLPAPER_DIR="/mnt/hdd/wallpapers/"
+WALLPAPER_DIR="/home/david/hdd/wallpapers/"
 DEFAULT_INTERVAL=900
 PID_FILE="$HOME/.cache/hypr_wallpaper.pid"
 THEME_FILE="$HOME/.cache/hypr_current_theme"

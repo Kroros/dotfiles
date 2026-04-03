@@ -2,8 +2,8 @@ import Quickshell
 import QtQuick
 import Quickshell.Io
 import QtQuick.Layouts
-import "../widgets"
-import "../components"
+import "./widgets"
+import "./components"
 
 Scope {
     Variants {

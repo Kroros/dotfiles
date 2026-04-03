@@ -5,9 +5,9 @@ import Quickshell
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../scripts/calendarLayout.js" as CalendarLayout
-import "../components"
-import "../widgetUtils"
+import "./scripts/calendarLayout.js" as CalendarLayout
+import "./components"
+import "./widgetUtils"
 
 PanelWindow {
     id: root;

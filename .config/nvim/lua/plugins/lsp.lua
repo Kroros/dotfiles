@@ -124,9 +124,9 @@ return {
 			pyright = {},
 			ts_ls = {},
 			stylua = {}, -- Used to format Lua code
-			--roslyn_ls = {},
 			css_variables = {},
 			html = {},
+			omnisharp = {},
 			ruff = {},
 			texlab = {},
 			qmlls = {},

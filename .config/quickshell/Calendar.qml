@@ -2,6 +2,7 @@
 //https://github.com/end-4/dots-hyprland
 
 import Quickshell
+import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -11,9 +12,11 @@ import "./widgetUtils"
 
 PanelWindow {
     id: root;
+    focusable: true;
 
     implicitHeight: 400;
     implicitWidth: 400;
+
 
     property int monthShift: 0;
     property var viewingDate: CalendarLayout.getDateInXMonths(monthShift);
@@ -29,6 +32,12 @@ PanelWindow {
     margins {
         top: 10
         right: 10
+    }
+
+    HyprlandFocusGrab {
+        id: grab;
+        active: root.visible;
+        windows: [ root ];
     }
 
     Rectangle {
@@ -51,6 +60,23 @@ PanelWindow {
 
         ColumnLayout {
             id: calendarColumn;
+            
+            Keys.onReleased: (event) => {
+                if (event.key == Qt.Key_H) {
+                    monthShift--;
+                    event.accepted = true;
+                }
+
+                if (event.key == Qt.Key_L) {
+                    monthShift++;
+                    event.accepted = true;
+                }
+                
+                if (event.key == Qt.Key_J || event.key == Qt.Key_K) {
+                    monthShift = 0;
+                    event.accepted = true;
+                }
+            }
 
             anchors.centerIn: parent;
 
@@ -74,7 +100,6 @@ PanelWindow {
                         Layout.fillWidth: true;
                         Layout.alignment: Qt.AlignHCenter;
                         buttonText: `${viewingDate.toLocaleDateString(Qt.locale("en_GB"), "MMMM yyyy")}`;
-                        //buttonText: viewingDate;
                         fontSize: 25;
                         fgColour: (monthShift == 0) ? Colours.primary : Colours.secondary;
                         bgColour: "transparent";

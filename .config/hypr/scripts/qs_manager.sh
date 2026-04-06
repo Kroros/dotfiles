@@ -6,11 +6,10 @@ ACTIVE_WIDGET=$(cat $HOME/.cache/qs_active_widget)
 
 TARGET="$1"
 
-if [[ $ACTIVE_WIDGET == "none" ]]; then
-    echo $TARGET > $HOME/.cache/qs_active_widget
-    quickshell -p $QS_DIR/$TARGET.qml
+if [[ "$ACTIVE_WIDGET" == "none" ]]; then
+    quickshell -p $QS_DIR/$TARGET.qml &
+    echo "$TARGET" > $HOME/.cache/qs_active_widget
 else
-    WIDGET_PID=$(pgrep -f "quickshell.*$TARGET.qml")
-    kill $WIDGET_PID
+    pkill -f "quickshell.*$TARGET.qml"
     echo "none" > $HOME/.cache/qs_active_widget
 fi

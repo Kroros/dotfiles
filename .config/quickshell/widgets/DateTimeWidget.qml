@@ -23,14 +23,6 @@ ColumnLayout {
         color: Colours.primary
         font.pixelSize: 16
     }
-    MouseArea {
-        anchors.fill: parent;
-        cursorShape: Qt.PointingHandCursor;
-
-        onClicked: {
-            Quickshell.execDetached(['bash', '~/.config/hypr/scripts/qs_manager.sh "Calendar"']);
-        }
-    }
 
     Process {
         id: toggleCalendar;

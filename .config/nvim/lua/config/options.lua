@@ -6,3 +6,6 @@ vim.opt.termguicolors = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.foldenable = false
+vim.opt.smartindent = false
+vim.diagnostic.enable(true)
+vim.diagnostic.enable = true

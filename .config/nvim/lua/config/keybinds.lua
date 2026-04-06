@@ -43,3 +43,6 @@ vim.keymap.set("n", "<S-k>", ":bnext<CR>")
 vim.keymap.set("n", "<S-j>", ":bprevious<CR>")
 vim.keymap.set("n", "<leader>bd", ":Bdelete!<CR>")
 vim.keymap.set("n", "<leader>bn", "<cmd> enew <CR>")
+
+-- Diagnostics
+vim.keymap.set("n", "<leader>d", "<cmd> lua vim.diagnostic.open_float() <CR>")

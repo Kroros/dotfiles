@@ -68,4 +68,7 @@ return {
 			require("colorizer").setup()
 		end,
 	},
+	{
+		"mbbill/undotree",
+	},
 }

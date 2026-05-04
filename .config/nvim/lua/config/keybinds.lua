@@ -46,3 +46,6 @@ vim.keymap.set("n", "<leader>bn", "<cmd> enew <CR>")
 
 -- Diagnostics
 vim.keymap.set("n", "<leader>d", "<cmd> lua vim.diagnostic.open_float() <CR>")
+
+-- Undo tree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

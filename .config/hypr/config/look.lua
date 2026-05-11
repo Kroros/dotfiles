@@ -11,7 +11,7 @@ hl.config({
 
 		col = {
 			active_border = { colors = { "rgba(45cd45ee)", "rgba(c0d550ee)" }, angle = 45 },
-			inactive_border = { colors = { "rgba(eab387ee)", "rgba(dadadaeee)" }, angle = 45 },
+			inactive_border = { colors = { "rgba(eab387ee)", "rgba(dadadaee)" }, angle = 45 },
 		},
 
 		resize_on_border = false,
@@ -48,6 +48,12 @@ hl.config({
 	},
 })
 
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+
 hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
 
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
@@ -70,7 +76,6 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 hl.config({
 	dwindle = {
-		pseudotile = true,
 		preserve_split = true,
 	},
 })

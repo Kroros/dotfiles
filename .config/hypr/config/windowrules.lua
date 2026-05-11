@@ -2,11 +2,12 @@
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
-hl.window_rule({
-	name = "suppress-maximise-events",
+local suppressMaximizeRule = hl.window_rule({
+	-- Ignore maximize requests from all apps. You'll probably like this.
+	name = "suppress-maximize-events",
 	match = { class = ".*" },
 
-	supress_event = "maximize",
+	suppress_event = "maximize",
 })
 
 hl.window_rule({

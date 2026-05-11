@@ -11,8 +11,8 @@ local terminal = "kitty"
 --- Controles
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + SPACE", hl.exec_cmd(menu))
-hl.bind(mainMod == " + E", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + E", hl.dsp.layout("togglesplit"))
 
 --- Move focus
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -31,18 +31,18 @@ for i = 1, 10 do
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
-hl.bind(mainMod .. "period", hl.dsp.layout("move +col"))
-hl.bind(mainMod .. "comma", hl.dsp.layout("move -col"))
+hl.bind(mainMod .. " + period", hl.dsp.layout("move +col"))
+hl.bind(mainMod .. " + comma", hl.dsp.layout("move -col"))
 
 --- Move Workspace
-hl.bind(mainMod .. " + CTRL + right", hl.dsp.workspace.move({ "right" }))
-hl.bind(mainMod .. " + CTRL + left", hl.dsp.workspace.move({ "left" }))
-hl.bind(mainMod .. " + CTRL + L", hl.dsp.workspace.move({ "right" }))
-hl.bind(mainMod .. " + CTRL + H", hl.dsp.workspace.move({ "left" }))
+hl.bind(mainMod .. " + CTRL + right", hl.dsp.workspace.move({ monitor = "r" }))
+hl.bind(mainMod .. " + CTRL + left", hl.dsp.workspace.move({ monitor = "l" }))
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.workspace.move({ monitor = "r" }))
+hl.bind(mainMod .. " + CTRL + H", hl.dsp.workspace.move({ monitor = "l" }))
 
 --- Window Modes
-hl.bind(mainMod .. " + F", hl.dsp.fullscreen({ action = "toggle" }))
-hl.bind(mainMod .. " + CTRL + F", hl.dsp.float({ action = "toggle" }))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
+hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.float({ action = "toggle" }))
 
 --- Group Modes
 hl.bind(mainMod .. " + W", hl.dsp.group.toggle())
@@ -54,10 +54,10 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 --- Multimedia keys
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next -p spotify"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause -p spotify"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause -p spotify"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous -p spotify"), { locked = true })
 
 --- Screenshot and Colourpicker
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m output --freeze -o /home/david/hdd/screenshots/"))

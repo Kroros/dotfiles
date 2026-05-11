@@ -63,7 +63,7 @@ RowLayout {
                 onExited: wsButton.hovered = false;
 
                 onClicked: {
-                    Hyprland.dispatch("workspace " + ws);
+                    Hyprland.dispatch("hl.dsp.focus({ workspace = " + ws + " })");
                 }
             }
         }

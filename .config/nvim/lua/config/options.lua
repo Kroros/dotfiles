@@ -8,8 +8,12 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.foldenable = false
 vim.opt.smartindent = false
+vim.opt.wrap = false
 vim.diagnostic.enable(true)
 vim.diagnostic.enable = true
+vim.opt.scrolloff = 8
+vim.opt.updatetime = 500
+vim.opt.clipboard:append("unnamedplus")
 
 -- Theming
 vim.api.nvim_create_autocmd("ColorScheme", {

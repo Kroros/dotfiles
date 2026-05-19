@@ -7,7 +7,7 @@ import QtQuick
 Singleton {
     id: root;
 
-    property string player: "spotify";
+    property string player: "spotify_player";
     property string title;
     property string artist;
     property string album;

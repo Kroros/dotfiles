@@ -1,3 +1,4 @@
+local vars = require("config.localEnv")
 --------------------
 ---- KEYBINDING ----
 --------------------
@@ -7,12 +8,17 @@ local mainMod = "SUPER"
 local fileManager = "dolphin"
 local menu = "pkill wofi || wofi --show drun --allow-images --hide-scroll"
 local terminal = "kitty"
+local musicPlayer = "spotify_player"
+
+local currentMonth = os.date("%Y-%m")
+local qsIpc = "qs ipc -p " .. vars.qsPath .. " call "
 
 --- Controles
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + E", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(qsIpc .. "main forceReload"))
 
 --- Move focus
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -42,7 +48,7 @@ hl.bind(mainMod .. " + CTRL + H", hl.dsp.workspace.move({ monitor = "l" }))
 
 --- Window Modes
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
-hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 
 --- Group Modes
 hl.bind(mainMod .. " + W", hl.dsp.group.toggle())
@@ -54,15 +60,18 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 --- Multimedia keys
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next -p spotify"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause -p spotify"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause -p spotify"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous -p spotify"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next -p " .. musicPlayer), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause -p " .. musicPlayer), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause -p " .. musicPlayer), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous -p " .. musicPlayer), { locked = true })
 
 --- Screenshot and Colourpicker
-hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m output --freeze -o /home/david/hdd/screenshots/"))
-hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -m region --freeze -o /home/david/hdd/screenshots/"))
-hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("hyprshot -m window --freeze -o /home/david/hdd/screenshots/"))
+hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m output --freeze -o /home/david/hdd/screenshots/" .. currentMonth))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -m region --freeze -o /home/david/hdd/screenshots/" .. currentMonth))
+hl.bind(
+	mainMod .. " + Print",
+	hl.dsp.exec_cmd("hyprshot -m window --freeze -o /home/david/hdd/screenshots/" .. currentMonth)
+)
 
 hl.bind(mainMod .. " + CTRL + Print", hl.dsp.exec_cmd("sh -c $HOME/.config/hypr/scripts/colour_picker.sh"))
 
@@ -81,4 +90,5 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd('kitty -- sh -c "bash -c "btop;
 
 --- Widgets
 local toggleWidget = "CTRL + " .. mainMod .. " + ALT"
-hl.bind(toggleWidget .. " + C", hl.dsp.exec_cmd('bash ~/.config/hypr/scripts/qs_manager.sh "Calendar"'))
+hl.bind(toggleWidget .. " + C", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Calendar"))
+hl.bind(toggleWidget .. " + M", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Music"))

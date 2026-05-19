@@ -44,7 +44,7 @@ PanelWindow {
         anchors.fill: parent;
 
         color: Colours.background;
-        radius: 10;
+        radius: 0;
 
 
         MouseArea {

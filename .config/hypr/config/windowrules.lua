@@ -50,7 +50,7 @@ hl.workspace_rule({
 hl.window_rule({
 	name = "browser-workspace",
 	match = {
-		class = "^(zen-browser)$",
+		class = "^(zen)$",
 	},
 	workspace = 1,
 })

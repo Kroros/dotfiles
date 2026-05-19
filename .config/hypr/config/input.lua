@@ -12,6 +12,8 @@ hl.config({
 
 		follow_mouse = 1,
 
+		numlock_by_default = true,
+
 		sensitivity = -0.5,
 		tablet = {
 			output = "DP-1",

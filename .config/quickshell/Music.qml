@@ -10,6 +10,15 @@ import "./widgetUtils"
 
 PanelWindow {
     id: root;
+
+    readonly property int secondsProgress: MPlayer.progress % 60;
+    readonly property real minutesProgress: (MPlayer.progress - secondsProgress) / 60;
+    readonly property string progress: minutesProgress + ":" + (secondsProgress < 10 ? "0" + secondsProgress : secondsProgress);
+
+    readonly property int secondsLength: MPlayer.length % 60;
+    readonly property real minutesLength: (MPlayer.length - secondsLength) / 60;
+    readonly property string length: minutesLength + ":" + (secondsLength < 10 ? "0" + secondsLength : secondsLength);
+
     focusable: true;
 
     anchors {
@@ -24,7 +33,7 @@ PanelWindow {
         left: 10
     }
 
-    implicitWidth: 600;
+    implicitWidth: 900;
     implicitHeight: 450;
 
     HyprlandFocusGrab {
@@ -36,7 +45,7 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent;
         color: Colours.background;
-        radius: 10;
+        radius: 0;
 
         ColumnLayout {
             anchors {
@@ -91,6 +100,63 @@ PanelWindow {
                         color: Colours.primary;
                         text: MPlayer.artist;
                         font.pixelSize: 20;
+                    }
+
+                    RowLayout {
+                        StyledText {
+                            id: currentPos;
+                            color: Colours.foreground;
+                            text: root.progress;
+                        }
+
+                        Slider {
+                            id: slider;
+
+                            implicitWidth: 500;
+                            value: MPlayer.progress / MPlayer.length;
+
+                            live: false;
+
+                            background: Item {
+                                Rectangle {
+                                    anchors.top: parent.top;
+                                    anchors.bottom: parent.bottom;
+                                    anchors.left: parent.left;
+
+                                    implicitWidth: slider.handle.x - slider.implicitHeight / 6; 
+                                    gradient: Gradient {
+                                        orientation: Gradient.Horizontal;
+                                        GradientStop { position: 0.0; color: Colours.primary }
+                                        GradientStop { position: 0.5; color: Colours.secondary }
+                                        GradientStop { position: 1.0; color: Colours.tertiary }
+                                    }
+                                }
+
+                                Rectangle {
+                                    anchors.top: parent.top;
+                                    anchors.bottom: parent.bottom;
+                                    anchors.right: parent.right;
+
+                                    implicitWidth: parent.width - slider.handle.x - slider.handle.implicitWidth - slider.implicitHeight / 6;
+
+                                    color: Colours.foregroundDark;
+                                }
+                            }
+
+                            handle: Rectangle {
+                                x: slider.visualPosition * slider.availableWidth - implicitWidth / 2;
+
+                                implicitWidth: slider.implicitHeight / 4.5;
+                                implicitHeight: slider.implicitHeight;
+
+                                color: Colours.border;
+                            }
+                        }
+                        StyledText {
+                            id: trackLength;
+                            color: Colours.foreground;
+                            text: root.length;
+                        }
                     }
                 }
             }

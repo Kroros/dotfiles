@@ -26,24 +26,24 @@ hl.window_rule({
 })
 
 hl.workspace_rule({
-	workspace = 1,
+	workspace = "1",
 	monitor = "DP-1",
 })
 hl.workspace_rule({
-	workspace = 2,
+	workspace = "2",
 	monitor = "DP-2",
 	layout = "scrolling",
 })
 hl.workspace_rule({
-	workspace = 3,
+	workspace = "3",
 	monitor = "HDMI-A-1",
 })
 hl.workspace_rule({
-	workspace = 5,
+	workspace = "5",
 	layout = "scrolling",
 })
 hl.workspace_rule({
-	workspace = 6,
+	workspace = "6",
 	monitor = "DP-1",
 })
 

@@ -15,9 +15,12 @@ PanelWindow {
     readonly property real minutesProgress: (MPlayer.progress - secondsProgress) / 60;
     readonly property string progress: minutesProgress + ":" + (secondsProgress < 10 ? "0" + secondsProgress : secondsProgress);
 
-    readonly property int secondsLength: MPlayer.length % 60;
-    readonly property real minutesLength: (MPlayer.length - secondsLength) / 60;
+    readonly property int secondsLength: MPlayer.musicData.length % 60;
+    readonly property real minutesLength: (MPlayer.musicData.length - secondsLength) / 60;
     readonly property string length: minutesLength + ":" + (secondsLength < 10 ? "0" + secondsLength : secondsLength);
+
+
+    property bool seeking: false;
 
     focusable: true;
 
@@ -92,13 +95,13 @@ PanelWindow {
                         id: titleText;
                         font.pixelSize: 22;
                         color: Colours.primary;
-                        text: MPlayer.title;
+                        text: MPlayer.musicData.title;
                     }
 
                     StyledText {
                         id: artistText;
                         color: Colours.primary;
-                        text: MPlayer.artist;
+                        text: MPlayer.musicData.artist;
                         font.pixelSize: 20;
                     }
 
@@ -109,54 +112,79 @@ PanelWindow {
                             text: root.progress;
                         }
 
-                        Slider {
-                            id: slider;
+                        StyledSlider {
+                            id: progBar
 
-                            implicitWidth: 500;
-                            value: MPlayer.progress / MPlayer.length;
+                            value: MPlayer.progress / MPlater.musicData.length
 
-                            live: false;
-
-                            background: Item {
-                                Rectangle {
-                                    anchors.top: parent.top;
-                                    anchors.bottom: parent.bottom;
-                                    anchors.left: parent.left;
-
-                                    implicitWidth: slider.handle.x - slider.implicitHeight / 6; 
-                                    gradient: Gradient {
-                                        orientation: Gradient.Horizontal;
-                                        GradientStop { position: 0.0; color: Colours.primary }
-                                        GradientStop { position: 0.5; color: Colours.secondary }
-                                        GradientStop { position: 1.0; color: Colours.tertiary }
+                            Connections {
+                                target: MPlayer.musicData;
+                                function onMusicDataChanged() {
+                                    if (!progBar.pressed && !root.seeking) {
+                                        //progBar.value = MPlayer.progress / MPlayer.musicData.length;
                                     }
                                 }
-
-                                Rectangle {
-                                    anchors.top: parent.top;
-                                    anchors.bottom: parent.bottom;
-                                    anchors.right: parent.right;
-
-                                    implicitWidth: parent.width - slider.handle.x - slider.handle.implicitWidth - slider.implicitHeight / 6;
-
-                                    color: Colours.foregroundDark;
-                                }
-                            }
-
-                            handle: Rectangle {
-                                x: slider.visualPosition * slider.availableWidth - implicitWidth / 2;
-
-                                implicitWidth: slider.implicitHeight / 4.5;
-                                implicitHeight: slider.implicitHeight;
-
-                                color: Colours.border;
                             }
                         }
+
+                        
                         StyledText {
                             id: trackLength;
                             color: Colours.foreground;
                             text: root.length;
                         }
+                    }
+
+                    RowLayout {
+                        Layout.leftMargin: (parent.implicitWidth - implicitWidth) / 2;
+
+                        StyledButton{
+                            id: shuffleButton;
+                            buttonText: "󰒝";
+                            fontSize: 32;
+                            fgColour: MPlayer.musicData.shuffleStat == "true" ? Colours.secondary : Colours.foreground;
+
+                            Layout.margins: 12;
+                        }
+                        StyledButton {
+                            id: prevButton;
+                            buttonText: "󰼨";
+                            fontSize: 56;
+                            fgColour: Colours.secondary;
+                            
+                            Layout.margins: 12;
+                        }
+                        StyledButton {
+                            id: playPauseButton
+                            buttonText: MPlayer.musicData.pauseStat == "Paused" ? "󰏤" : "";
+                            fontSize: 64;
+                            fgColour: Colours.secondary;
+
+                            Layout.margins: 12;
+                        }
+                        StyledButton {
+                            id: nextButton;
+                            buttonText: "󰼧";
+                            fontSize: 56;
+                            fgColour: Colours.secondary;
+
+                            Layout.margins: 12;
+                        }
+
+                        StyledButton{
+                            id: loopButton;
+                            buttonText: MPlayer.musicData.loopStat == "Track" ? "󰑘" : "󰑖";
+                            fontSize: 32;
+                            fgColour: MPlayer.musicData.loopStat == "None" ? Colours.foreground : Colours.secondary;
+
+                            Layout.margins: 12;
+                        }
+                    }
+
+                    StyledSlider {
+                        id: volumeSlider;
+
+                        implicitWidth: parent.implicitWidth * 0.1;
                     }
                 }
             }

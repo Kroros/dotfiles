@@ -4,19 +4,13 @@ local vars = require("config.localEnv")
 --------------------
 
 local mainMod = "SUPER"
-
-local fileManager = "dolphin"
-local menu = "pkill wofi || wofi --show drun --allow-images --hide-scroll"
-local terminal = "kitty"
-local musicPlayer = "spotify_player"
-
 local currentMonth = os.date("%Y-%m")
 local qsIpc = "qs ipc -p " .. vars.qsPath .. " call "
 
 --- Controles
-hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(vars.terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(vars.menu))
 hl.bind(mainMod .. " + E", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(qsIpc .. "main forceReload"))
 
@@ -30,6 +24,11 @@ hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
+
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 
 --- Move window to workspace and scroll
 for i = 1, 10 do
@@ -60,10 +59,10 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 --- Multimedia keys
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next -p " .. musicPlayer), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause -p " .. musicPlayer), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause -p " .. musicPlayer), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous -p " .. musicPlayer), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next -p " .. vars.musicPlayer), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause -p " .. vars.musicPlayer), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause -p " .. vars.musicPlayer), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous -p " .. vars.musicPlayer), { locked = true })
 
 --- Screenshot and Colourpicker
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m output --freeze -o /home/david/hdd/screenshots/" .. currentMonth))

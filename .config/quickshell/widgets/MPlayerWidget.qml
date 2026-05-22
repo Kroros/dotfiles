@@ -12,7 +12,7 @@ Rectangle {
     color: "transparent";
 
     CircProg {
-        value: MPlayer.progress / MPlayer.length;
+        value: MPlayer.progress / MPlayer.musicData.length;
         size: 50;
         strokeWidth: 5;
     }
@@ -22,14 +22,14 @@ Rectangle {
         y: 7;
         color: Colours.primary;
         font.pixelSize: 25;
-        text: MPlayer.pauseStat == "Paused" ? "󰏤" : "";
+        text: MPlayer.musicData.pauseStat === "Paused" ? "󰏤" : "";
     }
 
     StyledText {
         id: titleText;
         x: 55;
         color: Colours.primary;
-        text: MPlayer.title;
+        text: MPlayer.musicData.title;
     }
 
     StyledText {
@@ -37,12 +37,7 @@ Rectangle {
         x: 55;
         y: 25;
         color: Colours.primary;
-        text: MPlayer.artist;
+        text: MPlayer.musicData.artist;
         font.pixelSize: 14;
-    }
-
-    MouseArea {
-        anchors.fill: parent;
-        cursorShape: Qt.PointingHandCursor;
     }
 }

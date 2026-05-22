@@ -7,15 +7,17 @@ import QtQuick
 Singleton {
     id: root;
 
-    property string player: "spotify_player";
-    property string title;
-    property string artist;
-    property string album;
-    property int length;
-    property int progress;
-    property string pauseStat;
-    property string loopStat;
-    property string shuffleStat;
+    property var musicData: {
+        "player": "spotify",
+        "title": "",
+        "artist": "",
+        "album": "",
+        "length": 0,
+        "pauseStat": "Paused",
+        "loopStat": "None",
+        "shuffleStat": "false",
+    };
+    property int progress: 0;
 
     Process {
         id: metaDataProc;
@@ -23,19 +25,24 @@ Singleton {
         command: ["playerctl",
                   "--follow",
                   "-p",
-                  root.player,
+                  root.musicData.player,
                   "metadata",
                   "--format",
-                  "{{title}};{{artist}};{{album}};{{mpris:length}}"];
+                  "{{title}};{{artist}};{{album}};{{mpris:length}};{{status}};{{shuffle}};{{loop}}"];
         running: true;
 
         stdout: SplitParser {
             onRead: data => {
                 var info = data.split(";");
-                root.title = info[0];
-                root.artist = info[1];
-                root.album = info[2];
-                root.length = Math.round(info[3] / 1000000);
+                root.musicData = {
+                    title: info[0],
+                    artist: info[1],
+                    album: info[2],
+                    length: Math.round(info[3] / 1000000),
+                    pauseStat: info[4],
+                    shuffleStat: info[5],
+                    loopStat: info[6],
+                };
             }
         }
     }
@@ -45,13 +52,13 @@ Singleton {
 
         command : ["playerctl",
                    "-p",
-                   player,
+                   root.musicData.player,
                    "position"];
 
         running: true;
         stdout: SplitParser {
             onRead: data => {
-                root.progress = Math.round(data);
+                root.progress = Math.round(parseFloat(data));
             }
         }
     }
@@ -61,56 +68,5 @@ Singleton {
         repeat: true;
         running: true;
         onTriggered: posProc.running = true;
-    }
-
-    Process {
-        id: playPauseStat;
-
-        command: ["playerctl",
-                  "--follow",
-                   "-p",
-                   player,
-                   "status"];
-
-        running: true;
-        stdout: SplitParser {
-            onRead: data => {
-                root.pauseStat = data;
-            }
-        }
-    }
-
-    Process {
-        id: shuffStat;
-
-        command: ["playerctl",
-                  "--follow",
-                   "-p",
-                   player,
-                   "shuffle"];
-
-        running: true;
-        stdout: SplitParser {
-            onRead: data => {
-                root.shuffleStat = data;
-            }
-        }
-    }
-
-    Process {
-        id: loopStatus;
-
-        command: ["playerctl",
-                  "--follow",
-                   "-p",
-                   player,
-                   "loop"];
-
-        running: true;
-        stdout: SplitParser {
-            onRead: data => {
-                root.loopStat = data;
-            }
-        }
     }
 }

@@ -14,7 +14,8 @@ Slider {
             anchors.bottom: parent.bottom;
             anchors.left: parent.left;
 
-            implicitWidth: root.handle.x - root.implicitHeight / 6; 
+            implicitWidth: root.handle.x ;
+
             gradient: Gradient {
                 orientation: Gradient.Horizontal;
                 GradientStop { position: 0.0; color: Colours.primary }
@@ -36,8 +37,11 @@ Slider {
 
     handle: Rectangle {
         x: root.visualPosition * root.availableWidth - implicitWidth / 2;
+        y: -root.height / 4;
 
-        implicitWidth: 5;
-        implicitHeight: 15;
+        implicitWidth: 10;
+        implicitHeight: 10;
+        height: 15;
+        color: Colours.border;
     }
 }

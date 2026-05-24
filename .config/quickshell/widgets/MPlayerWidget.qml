@@ -12,7 +12,7 @@ Rectangle {
     color: "transparent";
 
     CircProg {
-        value: MPlayer.progress / MPlayer.musicData.length;
+        value: MPlayer.musicData.progress / MPlayer.musicData.length;
         size: 50;
         strokeWidth: 5;
     }

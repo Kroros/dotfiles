@@ -49,3 +49,8 @@ vim.keymap.set("n", "<leader>d", "<cmd> lua vim.diagnostic.open_float() <CR>", {
 
 -- Undo tree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+-- Flash
+vim.keymap.set({ "n", "v" }, "<leader>j", function()
+	require("flash").jump()
+end, { desc = "Flash" })

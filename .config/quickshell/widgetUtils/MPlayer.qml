@@ -13,11 +13,11 @@ Singleton {
         "artist": "",
         "album": "",
         "length": 0,
+        "progress": 0,
         "pauseStat": "Paused",
         "loopStat": "None",
         "shuffleStat": "false",
     };
-    property int progress: 0;
 
     Process {
         id: metaDataProc;
@@ -28,7 +28,7 @@ Singleton {
                   root.musicData.player,
                   "metadata",
                   "--format",
-                  "{{title}};{{artist}};{{album}};{{mpris:length}};{{status}};{{shuffle}};{{loop}}"];
+                  "{{title}};{{artist}};{{album}};{{mpris:length}};{{position}};{{status}};{{shuffle}};{{loop}}"];
         running: true;
 
         stdout: SplitParser {
@@ -39,34 +39,12 @@ Singleton {
                     artist: info[1],
                     album: info[2],
                     length: Math.round(info[3] / 1000000),
-                    pauseStat: info[4],
-                    shuffleStat: info[5],
-                    loopStat: info[6],
+                    progress: Math.round(info[4] / 1000000),
+                    pauseStat: info[5],
+                    shuffleStat: info[6],
+                    loopStat: info[7],
                 };
             }
         }
-    }
-
-    Process {
-        id: posProc;
-
-        command : ["playerctl",
-                   "-p",
-                   root.musicData.player,
-                   "position"];
-
-        running: true;
-        stdout: SplitParser {
-            onRead: data => {
-                root.progress = Math.round(parseFloat(data));
-            }
-        }
-    }
-
-    Timer {
-        interval: 500;
-        repeat: true;
-        running: true;
-        onTriggered: posProc.running = true;
     }
 }

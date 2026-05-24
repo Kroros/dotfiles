@@ -11,13 +11,15 @@ import "./widgetUtils"
 PanelWindow {
     id: root;
 
-    readonly property int secondsProgress: MPlayer.progress % 60;
-    readonly property real minutesProgress: (MPlayer.progress - secondsProgress) / 60;
+    readonly property int secondsProgress: MPlayer.musicData.progress % 60;
+    readonly property real minutesProgress: (MPlayer.musicData.progress - secondsProgress) / 60;
     readonly property string progress: minutesProgress + ":" + (secondsProgress < 10 ? "0" + secondsProgress : secondsProgress);
 
     readonly property int secondsLength: MPlayer.musicData.length % 60;
     readonly property real minutesLength: (MPlayer.musicData.length - secondsLength) / 60;
     readonly property string length: minutesLength + ":" + (secondsLength < 10 ? "0" + secondsLength : secondsLength);
+
+    readonly property real ratio: MPlayer.musicData.progress / MPlayer.musicData.length;
 
 
     property bool seeking: false;
@@ -115,13 +117,11 @@ PanelWindow {
                         StyledSlider {
                             id: progBar
 
-                            value: MPlayer.progress / MPlater.musicData.length
-
                             Connections {
-                                target: MPlayer.musicData;
+                                target: MPlayer;
                                 function onMusicDataChanged() {
                                     if (!progBar.pressed && !root.seeking) {
-                                        //progBar.value = MPlayer.progress / MPlayer.musicData.length;
+                                        progBar.value = root.ratio;
                                     }
                                 }
                             }

@@ -5,7 +5,3 @@ require("config.input")
 require("config.look")
 require("config.monitors")
 require("config.windowrules")
-
-hl.on("hyprland.start", function()
-	hl.exec_cmd("sleep 2 && hyprctl reload")
-end)

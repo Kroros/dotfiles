@@ -85,7 +85,7 @@ hl.bind(openApp .. " + B", hl.dsp.exec_cmd("zen-browser"))
 hl.bind(openApp .. " + P", hl.dsp.exec_cmd("ferdium"))
 hl.bind(openApp .. " + M", hl.dsp.exec_cmd("spotify-launcher"))
 hl.bind(openApp .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
-hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd('kitty -- sh -c "bash -c "btop; exec bash""'))
+hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd('kitty -- zsh -c "zsh -c "btop; exec zsh""'))
 
 --- Widgets
 local toggleWidget = "CTRL + " .. mainMod .. " + ALT"

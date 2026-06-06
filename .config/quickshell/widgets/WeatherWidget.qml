@@ -11,7 +11,8 @@ Rectangle {
 
         StyledText {
             font.family: "Weather Icons";
-            text: Weather.weather;
+            text: "";
+            Component.onCompleted: text = Qt.binding(() => Weather.weather);
         }
         StyledText {
             text: Weather.temperature;

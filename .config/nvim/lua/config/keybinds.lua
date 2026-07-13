@@ -61,3 +61,4 @@ vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "Git commit" }
 vim.keymap.set("n", "<leader>gd", "<cmd>Git diff<CR>", { desc = "Git diff" })
 vim.keymap.set("n", "<leader>gs", "<cmd>Git status<CR>", { desc = "Git status" })
 vim.keymap.set("n", "<leader>gl", "<cmd>Git log<CR>", { desc = "Git log" })
+vim.keymap.set("n", "<leader>gp", "<cmd>Git push origin main<CR>", { desc = "Git push to main" })

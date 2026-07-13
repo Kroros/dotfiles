@@ -6,6 +6,8 @@ import "./widgets"
 import "./components"
 
 Scope {
+    id: root;
+    property int vSize;
     Variants {
         model: Quickshell.screens
 
@@ -35,7 +37,7 @@ Scope {
                 right: 0
             }
 
-            implicitHeight: 50
+            implicitHeight: root.vSize;
 
             Rectangle{
                 anchors.fill: parent

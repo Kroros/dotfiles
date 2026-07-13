@@ -34,11 +34,6 @@ PanelWindow {
         right: 10
     }
 
-    HyprlandFocusGrab {
-        id: grab;
-        active: root.visible;
-        windows: [ root ];
-    }
 
     Rectangle {
         anchors.fill: parent;
@@ -60,19 +55,20 @@ PanelWindow {
 
         ColumnLayout {
             id: calendarColumn;
+            focus: true;
             
             Keys.onReleased: (event) => {
-                if (event.key == Qt.Key_H) {
+                if (event.key == Qt.Key_H || event.key == Qt.Key_Left) {
                     monthShift--;
                     event.accepted = true;
                 }
 
-                if (event.key == Qt.Key_L) {
+                if (event.key == Qt.Key_L || event.key == Qt.Key_Right) {
                     monthShift++;
                     event.accepted = true;
                 }
                 
-                if (event.key == Qt.Key_J || event.key == Qt.Key_K) {
+                if (event.key == Qt.Key_J || event.key == Qt.Key_K || event.key == Qt.Key_Space) {
                     monthShift = 0;
                     event.accepted = true;
                 }
@@ -152,6 +148,17 @@ PanelWindow {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        HyprlandFocusGrab {
+            id: grab;
+            active: root.visible;
+            windows: [ calendarColumn ];
+            onActiveChanged: {
+                if (active) {
+                    calendarColumn.forceActiveFocus();
                 }
             }
         }

@@ -7,7 +7,10 @@ ShellRoot {
     
     property string activeWidget: "none";
 
-    Bar {}
+    Bar {
+        id: statusBar;
+        vSize: 50;
+    }
 
     IpcHandler {
         target: "main";
@@ -29,5 +32,10 @@ ShellRoot {
     Music {
         id: mplayer;
         visible: root.activeWidget == "Music";
+    }
+
+    Power {
+        id: powerMenu;
+        visible: root.activeWidget == "Power";
     }
 }

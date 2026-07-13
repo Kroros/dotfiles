@@ -62,7 +62,7 @@ PanelWindow {
             RowLayout {
                 Image {
                     id: image;
-                    source: '/home/david/hdd/Images/Code Award.png';
+                    source: MPlayer.musicData.albumArt;
 
                     width: 200;
                     height: 200;

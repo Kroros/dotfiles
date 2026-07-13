@@ -39,6 +39,10 @@ hl.workspace_rule({
 	monitor = "HDMI-A-1",
 })
 hl.workspace_rule({
+	workspace = "4",
+	layout = "scrolling",
+})
+hl.workspace_rule({
 	workspace = "5",
 	layout = "scrolling",
 })
@@ -116,4 +120,12 @@ hl.window_rule({
 		class = "^(steam)$",
 	},
 	workspace = 6,
+})
+
+--- Quickshell helpers
+hl.layer_rule({
+	name = "powermenu_effect",
+	match = { namespace = "quickshell:powermenu" },
+	blur = true,
+	ignore_alpha = 0.1,
 })

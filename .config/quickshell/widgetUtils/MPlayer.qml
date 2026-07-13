@@ -17,6 +17,7 @@ Singleton {
         "pauseStat": "Paused",
         "loopStat": "None",
         "shuffleStat": "false",
+        "albumArt": "",
     };
 
     Process {
@@ -28,7 +29,7 @@ Singleton {
                   root.musicData.player,
                   "metadata",
                   "--format",
-                  "{{title}};{{artist}};{{album}};{{mpris:length}};{{position}};{{status}};{{shuffle}};{{loop}}"];
+                  "{{title}};{{artist}};{{album}};{{mpris:length}};{{position}};{{status}};{{shuffle}};{{loop}};{{mpris:artUrl}}"];
         running: true;
 
         stdout: SplitParser {
@@ -43,6 +44,7 @@ Singleton {
                     pauseStat: info[5],
                     shuffleStat: info[6],
                     loopStat: info[7],
+                    albumArt: info[8],
                 };
             }
         }

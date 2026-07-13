@@ -76,7 +76,8 @@ hl.bind(mainMod .. " + CTRL + Print", hl.dsp.exec_cmd("sh -c $HOME/.config/hypr/
 
 --- Open Menus
 local openMenu = mainMod .. " + SHIFT"
-hl.bind(openMenu .. " + Q", hl.dsp.exec_cmd("sh -c $HOME/.config/rofi/power.sh"))
+--- hl.bind(openMenu .. " + Q", hl.dsp.exec_cmd("sh -c $HOME/.config/rofi/power.sh"))
+hl.bind(openMenu .. " + Q", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Power"))
 hl.bind(openMenu .. " + A", hl.dsp.exec_cmd("sh -c $HOME/.config/rofi/audio-control.sh"))
 
 --- Open Apps
@@ -91,3 +92,6 @@ hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd('kitty -- zsh -c "zsh -c "btop;
 local toggleWidget = "CTRL + " .. mainMod .. " + ALT"
 hl.bind(toggleWidget .. " + C", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Calendar"))
 hl.bind(toggleWidget .. " + M", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Music"))
+
+--- Nonsense
+hl.bind(mainMod .. " + ALT + d + r", hl.dsp.exec_cmd("wtype -s 200 Δᚱ"))

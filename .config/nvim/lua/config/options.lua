@@ -14,6 +14,7 @@ vim.diagnostic.enable = true
 vim.opt.scrolloff = 8
 vim.opt.updatetime = 500
 vim.opt.clipboard:append("unnamedplus")
+vim.g["sleuth_cs_heuristics"] = 0
 
 -- Theming
 vim.api.nvim_create_autocmd("ColorScheme", {

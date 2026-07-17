@@ -128,6 +128,18 @@ PanelWindow {
                                     }
                                 }
                             }
+
+                            onPressedChanged: {
+                                if (pressed) {
+                                    root.seeking = true;
+                                    seekDebounceTimer.stop();
+                                } else {
+                                    let pos = value * MPlayer.musicData.length;
+                                    console.log(pos);
+                                    Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify position ${pos}")`);
+                                    seekDebounceTimer.restart();
+                                }
+                            }
                         }
 
                         
@@ -141,37 +153,53 @@ PanelWindow {
                     RowLayout {
                         Layout.leftMargin: (parent.implicitWidth - implicitWidth) / 2;
 
-                        StyledButton{
+                        StyledButton {
                             id: shuffleButton;
                             buttonText: "󰒝";
                             fontSize: 32;
                             fgColour: MPlayer.musicData.shuffleStat == "true" ? Colours.secondary : Colours.foreground;
+                            bgColour: "transparent";
 
                             Layout.margins: 12;
+                            onClicked: () => {
+                                Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify shuffle toggle")`);
+                            }
                         }
                         StyledButton {
                             id: prevButton;
                             buttonText: "󰼨";
                             fontSize: 56;
                             fgColour: Colours.secondary;
+                            bgColour: "transparent";
                             
                             Layout.margins: 12;
+                            onClicked: () => {
+                                Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify previous")`);
+                            }
                         }
                         StyledButton {
                             id: playPauseButton
                             buttonText: MPlayer.musicData.pauseStat == "Paused" ? "󰏤" : "";
                             fontSize: 64;
                             fgColour: Colours.secondary;
+                            bgColour: "transparent";
 
                             Layout.margins: 12;
+                            onClicked: () => {
+                                Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify play-pause")`);
+                            }
                         }
                         StyledButton {
                             id: nextButton;
                             buttonText: "󰼧";
                             fontSize: 56;
                             fgColour: Colours.secondary;
+                            bgColour: "transparent";
 
                             Layout.margins: 12;
+                            onClicked: () => {
+                                Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify next")`);
+                            }
                         }
 
                         StyledButton{
@@ -179,8 +207,13 @@ PanelWindow {
                             buttonText: MPlayer.musicData.loopStat == "Track" ? "󰑘" : "󰑖";
                             fontSize: 32;
                             fgColour: MPlayer.musicData.loopStat == "None" ? Colours.foreground : Colours.secondary;
+                            bgColour: "transparent";
 
                             Layout.margins: 12;
+                            onClicked: () => {
+                                let mode = MPlayer.musicData.loopStat == "Track" ? "None" : MPlayer.musicData.loopStat == "None" ? "Playlist" : "Track";
+                                Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify loop ${mode}")`);
+                            }
                         }
                     }
 
@@ -188,11 +221,26 @@ PanelWindow {
                         id: volumeSlider;
 
                         implicitWidth: parent.implicitWidth * 0.1;
+
+                        value: MPlayer.musicData.volume;
+                        liveUpdate: false;
+
+                        onValueChanged: {
+                            if (pressed) {
+                                Hyprland.dispatch(`hl.dsp.exec_cmd("playerctl -p spotify volume ${value}")`);
+                            }
+                        }
                     }
                 }
             }
 
             // TODO: Add EQ here
         }
+    }
+
+    Timer {
+        id: seekDebounceTimer;
+        interval: 1000;
+        onTriggered: root.seeking = false;
     }
 }

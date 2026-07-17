@@ -2,6 +2,7 @@
 //https://github.com/end-4/dots-hyprland
 
 import Quickshell
+import Quickshell.Wayland;
 import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Controls
@@ -13,6 +14,8 @@ import "./widgetUtils"
 PanelWindow {
     id: root;
     focusable: true;
+    WlrLayershell.namespace: "quickshell:menu";
+    WlrLayershell.layer: WlrLayer.Overlay;
 
     implicitHeight: 400;
     implicitWidth: 400;
@@ -38,7 +41,7 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent;
 
-        color: Colours.background;
+        color: Colours.menu;
         radius: 0;
 
 

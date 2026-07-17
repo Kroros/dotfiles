@@ -125,7 +125,7 @@ hl.window_rule({
 --- Quickshell helpers
 hl.layer_rule({
 	name = "powermenu_effect",
-	match = { namespace = "quickshell:powermenu" },
+	match = { namespace = "quickshell:menu" },
 	blur = true,
 	ignore_alpha = 0.1,
 })

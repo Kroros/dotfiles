@@ -1,4 +1,6 @@
 import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Wayland
 import QtQuick
 import Quickshell.Io
 import QtQuick.Layouts
@@ -7,6 +9,7 @@ import "./components"
 
 Scope {
     id: root;
+
     property int vSize;
     Variants {
         model: Quickshell.screens

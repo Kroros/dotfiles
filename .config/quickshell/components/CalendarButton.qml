@@ -16,7 +16,6 @@ Button {
 
     background: Rectangle {
         color: (isToday == 1) ? Colours.primary : "transparent";
-        radius: 10
     }
 
     contentItem: StyledText {

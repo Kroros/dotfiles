@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -10,6 +11,8 @@ import "./widgetUtils"
 
 PanelWindow {
     id: root;
+    WlrLayershell.namespace: "quickshell:menu";
+    WlrLayershell.layer: WlrLayer.Overlay;
 
     readonly property int secondsProgress: MPlayer.musicData.progress % 60;
     readonly property real minutesProgress: (MPlayer.musicData.progress - secondsProgress) / 60;
@@ -49,7 +52,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent;
-        color: Colours.background;
+        color: Colours.menu;
         radius: 0;
 
         ColumnLayout {

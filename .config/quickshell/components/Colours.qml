@@ -17,4 +17,5 @@ Item {
     readonly property color warn: Qt.rgba(0.55, 0.55, 0.22, 1);
     readonly property color disabled: Qt.rgba(0.20, 0.25, 0.20, 1);
     readonly property color border: Qt.rgba(0.27, 0.80, 0.27, 1);
+    readonly property color menu: "#66000700";
 }

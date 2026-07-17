@@ -7,6 +7,10 @@ ShellRoot {
     
     property string activeWidget: "none";
 
+    function closeWindow(): void {
+        activeWidget = none;
+    }
+
     Bar {
         id: statusBar;
         vSize: 50;
@@ -37,5 +41,10 @@ ShellRoot {
     Power {
         id: powerMenu;
         visible: root.activeWidget == "Power";
+    }
+
+    Audio {
+        id: audioManager;
+        visible: root.activeWidget == "Audio";
     }
 }

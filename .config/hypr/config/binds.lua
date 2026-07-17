@@ -76,9 +76,10 @@ hl.bind(mainMod .. " + CTRL + Print", hl.dsp.exec_cmd("sh -c $HOME/.config/hypr/
 
 --- Open Menus
 local openMenu = mainMod .. " + SHIFT"
---- hl.bind(openMenu .. " + Q", hl.dsp.exec_cmd("sh -c $HOME/.config/rofi/power.sh"))
 hl.bind(openMenu .. " + Q", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Power"))
-hl.bind(openMenu .. " + A", hl.dsp.exec_cmd("sh -c $HOME/.config/rofi/audio-control.sh"))
+hl.bind(openMenu .. " + C", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Calendar"))
+hl.bind(openMenu .. " + M", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Music"))
+hl.bind(openMenu .. " + A", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Audio"))
 
 --- Open Apps
 local openApp = mainMod .. " + ALT"
@@ -88,10 +89,5 @@ hl.bind(openApp .. " + M", hl.dsp.exec_cmd("spotify-launcher"))
 hl.bind(openApp .. " + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
 hl.bind("CTRL + SHIFT + Escape", hl.dsp.exec_cmd('kitty -- zsh -c "zsh -c "btop; exec zsh""'))
 
---- Widgets
-local toggleWidget = "CTRL + " .. mainMod .. " + ALT"
-hl.bind(toggleWidget .. " + C", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Calendar"))
-hl.bind(toggleWidget .. " + M", hl.dsp.exec_cmd(qsIpc .. "main toggleWidget Music"))
-
 --- Nonsense
-hl.bind(mainMod .. " + ALT + d + r", hl.dsp.exec_cmd("wtype -s 200 Δᚱ"))
+hl.bind(mainMod .. " + CTRL + ALT + D", hl.dsp.exec_cmd("wtype -s 200 Δᚱ"))

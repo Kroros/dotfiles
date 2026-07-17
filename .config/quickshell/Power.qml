@@ -10,7 +10,7 @@ import ".";
 
 PanelWindow {
     id: root;
-    WlrLayershell.namespace: "quickshell:powermenu";
+    WlrLayershell.namespace: "quickshell:menu";
     WlrLayershell.layer: WlrLayer.Overlay;
 
     property int currentSelection: 0;
@@ -40,7 +40,7 @@ PanelWindow {
         id: container;
         anchors.fill: parent;
 
-        color: "#66000007";
+        color: Colours.menu;
 
         ColumnLayout {
             anchors.centerIn: parent;
@@ -72,6 +72,7 @@ PanelWindow {
 
                     if (event.key == Qt.Key_Escape) {
                         Hyprland.dispatch('hl.dsp.exec_cmd("qs ipc -p $HOME/.config/quickshell/Main.qml call main toggleWidget Power")');
+                        event.accepted = true;
                     }
                 }
 

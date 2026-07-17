@@ -51,9 +51,7 @@ Singleton {
 
         stdout: SplitParser {
             onRead: data => {
-                console.log("hi");
                 const match = data.match(/up\s+(.*?),\s+\d+\s+users?,/);
-                console.log(match);
                 if (match) {
                     root.uptimeText = match[1].trim();
                 }
